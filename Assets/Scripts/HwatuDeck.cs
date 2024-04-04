@@ -17,32 +17,38 @@ public class HwatuDeck
         // 각 월별로 카드 생성
         for (int month = 1; month <= 12; month++)
         {
+            int index = 0;
             switch (month)
             {
                 case 1: case 3: case 8: case 11: case 12:
-                    Cards.Add(new HwatuCard(month, CardType.Kwang));
+                    Cards.Add(new HwatuCard(month, CardType.Kwang, $"{month:D2}_{index}"));
+                    index++;
                     break;
             }
 
             switch (month)
             {
                 case 2: case 4: case 5: case 6: case 7: case 8: case 9: case 10: case 12:
-                    Cards.Add(new HwatuCard(month, CardType.Yeolggot));
+                    Cards.Add(new HwatuCard(month, CardType.Yeolggot, $"{month:D2}_{index}"));
+                    index++;
                     break;
             }
 
             switch (month)
             {
                 case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 9: case 10: case 12:
-                    Cards.Add(new HwatuCard(month, CardType.Tti));
+                    Cards.Add(new HwatuCard(month, CardType.Tti, $"{month:D2}_{index}"));
+                    index++;
                     break;
             }
 
-            Cards.Add(new HwatuCard(month, CardType.Pi));
+            Cards.Add(new HwatuCard(month, CardType.Pi, $"{month:D2}_{index}"));
+            index++;
 
             if (month != 12)
             {
-                Cards.Add(new HwatuCard(month, CardType.Pi));
+                Cards.Add(new HwatuCard(month, CardType.Pi, $"{month:D2}_{index}"));
+                index++;
             }
         }
 

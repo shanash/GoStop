@@ -16,5 +16,7 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.Log($"{c.Month} {c.Type}");
         }
+        d.Cards[0].Position = new Vector3(0, 1, 0);
+        d.Cards[0].Show = true;
     }
 }
