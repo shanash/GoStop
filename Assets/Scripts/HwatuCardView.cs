@@ -6,6 +6,8 @@ public class HwatuCardView : MonoBehaviour
     Material source = null;
     [SerializeField]
     MeshRenderer mr = null;
+    [SerializeField]
+    Transform pivot = null;
 
     public string Design
     {
@@ -33,9 +35,8 @@ public class HwatuCardView : MonoBehaviour
         mr.material = mat;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetFace(CardState state)
     {
-        
+        pivot.localEulerAngles = new Vector3(0, 0, state == CardState.FaceDown ? 0 : 180);
     }
 }

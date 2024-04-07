@@ -9,6 +9,52 @@ public class HwatuDeck
 
     public List<HwatuCard> Cards { get; set; }
     List<Action> shuffles = new List<Action>();
+    HwatuDeckView view = null;
+
+    public Vector3 Position
+    {
+        get
+        {
+            return position;
+        }
+        set
+        {
+            if (view != null)
+            {
+                view.transform.position = value;
+            }
+            position = value;
+        }
+    }
+    Vector3 position = Vector3.zero;
+
+    public bool Show
+    {
+        get => show;
+        set
+        {
+            if (value)
+            {
+                if (view == null)
+                {
+                    var go = new GameObject("HwatuDeck");
+                    view = go.AddComponent<HwatuDeckView>();
+                    view.transform.position = position;
+                    float origin_y = position.y + (Cards.Count * 1f);
+                    for (int i = 0; i < Cards.Count; i++)
+                    {
+                        Cards[i].Position = new Vector3(position.x, origin_y - 1f * i, position.z);
+                        Cards[i].State = CardState.FaceDown;
+                        Cards[i].Show = true;
+                    }
+                }
+            }
+
+            view.gameObject.SetActive(value);
+            show = value;
+        }
+    }
+    bool show = false;
 
     public HwatuDeck()
     {
@@ -68,8 +114,6 @@ public class HwatuDeck
 
     void SevenCardShuffle()
     {
-        Debug.Log("SevenCardShuffle");
-
         // 일곱 개의 더미를 저장할 리스트의 리스트
         List<List<HwatuCard>> piles = new List<List<HwatuCard>>();
 
@@ -103,7 +147,6 @@ public class HwatuDeck
 
     public void HinduShuffle()
     {
-        Debug.Log("HinduShuffle");
         System.Random random = new System.Random();
 
         for (int i = 0; i < NUMBER; i++)

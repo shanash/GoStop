@@ -2,18 +2,25 @@ using UnityEngine;
 
 public enum CardType
 {
-    None,
+    None = 0,
     Kwang,
     Yeolggot,
     Tti,
     Pi,
 }
 
+public enum CardState
+{
+    FaceUp,
+    FaceDown
+}
+
 public class HwatuCard
 {
-    public int Month { get; set; } // 1월부터 12월
-    public CardType Type { get; set; } // 카드의 종류
-    public string Design { get; set; }
+    public int Month { get; set; } = 0;
+    public CardType Type { get; set; } = CardType.None;
+    public string Design { get; set; } = string.Empty;
+    public CardState State { get; set; } = CardState.FaceDown;
 
     public Vector3 Position
     {
@@ -45,6 +52,7 @@ public class HwatuCard
                     view = Object.Instantiate(origin);
                     view.transform.position = position;
                     view.Design = Design;
+                    view.SetFace(State);
                 }
             }
 
