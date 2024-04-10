@@ -6,6 +6,7 @@ public enum CardType
     Kwang,
     Yeolggot,
     Tti,
+    SsangPi,
     Pi,
 }
 

@@ -40,10 +40,11 @@ public class HwatuDeck
                     var go = new GameObject("HwatuDeck");
                     view = go.AddComponent<HwatuDeckView>();
                     view.transform.position = position;
-                    float origin_y = position.y + (Cards.Count * 1f);
+                    float origin_y = position.y + (Cards.Count * 0.001f);
+                    Debug.Log($"Cards.Count : {Cards.Count}");
                     for (int i = 0; i < Cards.Count; i++)
                     {
-                        Cards[i].Position = new Vector3(position.x, origin_y - 1f * i, position.z);
+                        Cards[i].Position = new Vector3(position.x, origin_y - 0.001f * i, position.z);
                         Cards[i].State = CardState.FaceDown;
                         Cards[i].Show = true;
                     }
@@ -88,11 +89,19 @@ public class HwatuDeck
                     break;
             }
 
-            Cards.Add(new HwatuCard(month, CardType.Pi, $"{month:D2}_{index}"));
-            index++;
+            switch (month)
+            {
+                case 11: case 12:
+                    Cards.Add(new HwatuCard(month, CardType.SsangPi, $"{month:D2}_{index}"));
+                    index++;
+                    break;
+            }
 
             if (month != 12)
             {
+                Cards.Add(new HwatuCard(month, CardType.Pi, $"{month:D2}_{index}"));
+                index++;
+
                 Cards.Add(new HwatuCard(month, CardType.Pi, $"{month:D2}_{index}"));
                 index++;
             }
@@ -100,6 +109,8 @@ public class HwatuDeck
 
         shuffles.Add(SevenCardShuffle);
         shuffles.Add(HinduShuffle);
+
+        Debug.Log(this);
     }
 
     public void Shuffle()
@@ -169,5 +180,16 @@ public class HwatuDeck
                 j++;
             }
         }
+    }
+
+    public override string ToString()
+    {
+        string result = string.Empty;
+        foreach (var c in Cards)
+        {
+            result += $"{c.Month} {c.Type}\n";
+        }
+
+        return result;
     }
 }
