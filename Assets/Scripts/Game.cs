@@ -13,4 +13,14 @@ public class Game : MonoBehaviour
     {
         
     }
+
+    public void OnClickFlipFirst()
+    {
+        GameManager.I.Deck.FlipFirst();
+    }
+
+    public void OnClickPop()
+    {
+        GameManager.I.Deck.Pop();
+    }
 }

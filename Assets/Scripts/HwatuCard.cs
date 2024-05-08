@@ -21,7 +21,15 @@ public class HwatuCard
     public int Month { get; set; } = 0;
     public CardType Type { get; set; } = CardType.None;
     public string Design { get; set; } = string.Empty;
-    public CardState State { get; set; } = CardState.FaceDown;
+
+    public CardState State { get => state;
+        set
+        {
+            view?.SetFace(value);
+            state = value;
+        }
+    }
+    CardState state = CardState.FaceDown;
 
     public Vector3 Position
     {
@@ -64,6 +72,7 @@ public class HwatuCard
     }
     bool show = false;
 
+    public HwatuCardView View => view;
     HwatuCardView view = null;
 
     public HwatuCard(int month, CardType type, string design)
@@ -71,5 +80,18 @@ public class HwatuCard
         Month = month;
         Type = type;
         Design = design;
+    }
+
+    public void Flip()
+    {
+        switch (State)
+        {
+            case CardState.FaceDown:
+                State = CardState.FaceUp;
+                break;
+            case CardState.FaceUp:
+                State = CardState.FaceDown;
+                break;
+        }
     }
 }
