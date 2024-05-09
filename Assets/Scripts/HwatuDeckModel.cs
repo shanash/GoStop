@@ -160,7 +160,7 @@ public class HwatuDeckModel
         string result = string.Empty;
         foreach (var c in Cards)
         {
-            result += $"{c.Month} {c.Type}\n";
+            result += $"{c.Model.Month} {c.Model.Type}\n";
         }
 
         return result;

@@ -17,7 +17,7 @@ public class HwatuDeckView : MonoBehaviour
             cards[i].State = CardState.FaceDown;
             cards[i].Show = true;
 
-            cards[i].View.transform.parent = this.transform;
+            cards[i].SetParent(this.transform);
 
             views.Add(cards[i].View);
         }

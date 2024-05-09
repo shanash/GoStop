@@ -38,6 +38,8 @@ public class HwatuDeck
 
     public void Pop()
     {
-
+        var card = _cards[0];
+        card.Release();
+        _cards.RemoveAt(0);
     }
 }

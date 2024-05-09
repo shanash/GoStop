@@ -1,35 +1,12 @@
 using UnityEngine;
 
-public enum CardType
-{
-    None = 0,
-    Kwang,
-    Yeolggot,
-    Tti,
-    SsangPi,
-    Pi,
-}
-
-public enum CardState
-{
-    FaceUp,
-    FaceDown
-}
-
 public class HwatuCard
 {
-    public int Month { get; set; } = 0;
-    public CardType Type { get; set; } = CardType.None;
-    public string Design { get; set; } = string.Empty;
+    HwatuCardModel _cardModel;
+    HwatuCardView _cardView;
 
-    public CardState State { get => state;
-        set
-        {
-            view?.SetFace(value);
-            state = value;
-        }
-    }
-    CardState state = CardState.FaceDown;
+    public HwatuCardModel Model { get => _cardModel; }
+    public HwatuCardView View { get => _cardView; }
 
     public Vector3 Position
     {
@@ -39,9 +16,9 @@ public class HwatuCard
         }
         set
         {
-            if (view != null)
+            if (_cardView != null)
             {
-                view.transform.position = value;
+                _cardView.transform.position = value;
             }
             position = value;
         }
@@ -55,31 +32,38 @@ public class HwatuCard
         {
             if (value)
             {
-                if (view == null)
+                if (_cardView == null)
                 {
                     var origin = Resources.Load<HwatuCardView>("Prefabs/Card");
-                    view = Object.Instantiate(origin);
-                    view.transform.position = position;
-                    view.Design = Design;
-                    view.SetFace(State);
+                    _cardView = Object.Instantiate(origin);
+                    _cardView.transform.position = position;
+                    _cardView.Design = _cardModel.Design;
+                    _cardView.SetFace(State);
                 }
             }
 
-            view.gameObject.SetActive(value);
+            _cardView.gameObject.SetActive(value);
 
             show = value;
         }
     }
     bool show = false;
 
-    public HwatuCardView View => view;
-    HwatuCardView view = null;
+
+    public CardState State
+    {
+        get => state;
+        set
+        {
+            _cardView?.SetFace(value);
+            state = value;
+        }
+    }
+    CardState state = CardState.FaceDown;
 
     public HwatuCard(int month, CardType type, string design)
     {
-        Month = month;
-        Type = type;
-        Design = design;
+        _cardModel = new HwatuCardModel(month, type, design);
     }
 
     public void Flip()
@@ -93,5 +77,14 @@ public class HwatuCard
                 State = CardState.FaceDown;
                 break;
         }
+    }
+
+    public void Release()
+    {
+    }
+
+    public void SetParent(Transform parent)
+    {
+        _cardView.transform.SetParent(parent);
     }
 }
