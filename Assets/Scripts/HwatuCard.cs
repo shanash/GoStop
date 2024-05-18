@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class HwatuCard
 {
-    HwatuCardModel _cardModel;
-    HwatuCardView _cardView;
+    HwatuCardModel _model;
+    HwatuCardView _view;
 
-    public HwatuCardModel Model { get => _cardModel; }
-    public HwatuCardView View { get => _cardView; }
+    public HwatuCardModel Model { get => _model; }
+    public HwatuCardView View { get => _view; }
 
     public Vector3 Position
     {
@@ -16,9 +16,9 @@ public class HwatuCard
         }
         set
         {
-            if (_cardView != null)
+            if (_view != null)
             {
-                _cardView.transform.position = value;
+                _view.transform.position = value;
             }
             position = value;
         }
@@ -30,24 +30,11 @@ public class HwatuCard
         get => show;
         set
         {
-            if (value)
-            {
-                if (_cardView == null)
-                {
-                    var origin = Resources.Load<HwatuCardView>("Prefabs/Card");
-                    _cardView = Object.Instantiate(origin);
-                    _cardView.transform.position = position;
-                    _cardView.Design = _cardModel.Design;
-                    _cardView.SetFace(State);
-                }
-            }
-
-            _cardView.gameObject.SetActive(value);
-
+            _view.gameObject.SetActive(value);
             show = value;
         }
     }
-    bool show = false;
+    bool show = true;
 
 
     public CardState State
@@ -55,15 +42,27 @@ public class HwatuCard
         get => state;
         set
         {
-            _cardView?.SetFace(value);
+            _view?.SetFace(value);
             state = value;
         }
     }
     CardState state = CardState.FaceDown;
 
+    // 기본값이 있는 생성자
     public HwatuCard(int month, CardType type, string design)
+        : this(month, type, design, new Vector3(0, 1, 0))
     {
-        _cardModel = new HwatuCardModel(month, type, design);
+    }
+
+    public HwatuCard(int month, CardType type, string design, Vector3 pos)
+    {
+        _model = new HwatuCardModel(month, type, design);
+
+        var origin = Resources.Load<HwatuCardView>("Prefabs/Card");
+        _view = Object.Instantiate(origin);
+        _view.transform.position = pos;
+        _view.Design = _model.Design;
+        _view.SetFace(State);
     }
 
     public void Flip()
@@ -85,6 +84,6 @@ public class HwatuCard
 
     public void SetParent(Transform parent)
     {
-        _cardView.transform.SetParent(parent);
+        _view.transform.SetParent(parent);
     }
 }

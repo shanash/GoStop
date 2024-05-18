@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class HwatuDeck
 {
-    public HwatuDeckModel deckModel;
-    public HwatuDeckView deckView;
-    List<HwatuCard> _cards = null;
-
+    HwatuDeckModel _model;
+    HwatuDeckView _view;
 
     public bool Show
     {
@@ -15,31 +13,31 @@ public class HwatuDeck
 
     public HwatuDeck(List<HwatuCard> cards)
     {
-        _cards = cards;
-
-        deckModel = new HwatuDeckModel(cards);
-        deckModel.Shuffle();
+        _model = new HwatuDeckModel(cards);
+        _model.Shuffle();
 
         var origin = Resources.Load<HwatuDeckView>("Prefabs/Deck");
-        deckView = origin.Instantiate();
-        deckView.Initialize(cards);
+        _view = origin.Instantiate();
+        //_view.Initialize(cards);
+        _view.UpdateView(_model.Cards);
     }
 
     public void Shuffle()
     {
-        deckModel.Shuffle();
-        deckView.UpdateView(deckModel.Cards);
+        _model.Shuffle();
+        _view.UpdateView(_model.Cards);
     }
 
     public void FlipFirst()
     {
-        _cards[0].Flip();
+        _model.Cards[0].Flip();
     }
 
     public void Pop()
     {
-        var card = _cards[0];
+        var card = _model.Cards[0];
         card.Release();
-        _cards.RemoveAt(0);
+        _model.Cards.RemoveAt(0);
+        _view.UpdateView(_model.Cards);
     }
 }

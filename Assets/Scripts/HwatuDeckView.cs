@@ -27,7 +27,10 @@ public class HwatuDeckView : MonoBehaviour
 
     public void UpdateView(List<HwatuCard> cards)
     {
-
+        foreach (var card in cards)
+        {
+            
+        }
     }
 
     public HwatuDeckView Instantiate(Transform parent = null)
