@@ -37,6 +37,7 @@ public class HwatuCardView : MonoBehaviour
 
     public void SetFace(CardState state)
     {
+        Debug.Log($"{this.name} : SetFace");
         pivot.localEulerAngles = new Vector3(0, 0, state == CardState.FaceDown ? 0 : 180);
     }
 }

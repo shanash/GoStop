@@ -18,6 +18,7 @@ public class HwatuCard
         {
             if (_view != null)
             {
+                Debug.Log($"{_view.name} : {value}");
                 _view.transform.position = value;
             }
             position = value;
@@ -60,6 +61,7 @@ public class HwatuCard
 
         var origin = Resources.Load<HwatuCardView>("Prefabs/Card");
         _view = Object.Instantiate(origin);
+        _view.name = $"{origin.name}_{month}_{type}";
         _view.transform.position = pos;
         _view.Design = _model.Design;
         _view.SetFace(State);

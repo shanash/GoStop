@@ -21,6 +21,17 @@ public class Game : MonoBehaviour
 
     public void OnClickPop()
     {
+        var card = GameManager.I.Deck.Pop();
+        card.Position = new Vector3(100, 100, 100);
+    }
+
+    public void OnClickShuffle()
+    {
+        GameManager.I.Deck.Shuffle();
+    }
+
+    public void OnClickDraw()
+    {
         GameManager.I.Deck.Pop();
     }
 }

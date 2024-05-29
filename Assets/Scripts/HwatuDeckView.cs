@@ -27,9 +27,18 @@ public class HwatuDeckView : MonoBehaviour
 
     public void UpdateView(List<HwatuCard> cards)
     {
-        foreach (var card in cards)
+        float origin_y = transform.position.y + (cards.Count * 0.001f);
+        for (int i = 0; i < cards.Count; i++)
         {
-            
+            HwatuCard card = cards[i];
+            HwatuCardView view = cards[i].View;
+
+            card.Position = new Vector3(transform.position.x, origin_y - 0.001f * i, transform.position.z);
+            card.State = CardState.FaceDown;
+            card.Show = true;
+
+            // Hierarchy 순서를 List 순서에 맞게 조정
+            view.transform.SetSiblingIndex(i);
         }
     }
 

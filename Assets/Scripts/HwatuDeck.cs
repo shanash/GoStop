@@ -18,8 +18,8 @@ public class HwatuDeck
 
         var origin = Resources.Load<HwatuDeckView>("Prefabs/Deck");
         _view = origin.Instantiate();
-        //_view.Initialize(cards);
-        _view.UpdateView(_model.Cards);
+        _view.Initialize(cards);
+        //_view.UpdateView(_model.Cards);
     }
 
     public void Shuffle()
@@ -33,11 +33,12 @@ public class HwatuDeck
         _model.Cards[0].Flip();
     }
 
-    public void Pop()
+    public HwatuCard Pop()
     {
         var card = _model.Cards[0];
-        card.Release();
         _model.Cards.RemoveAt(0);
         _view.UpdateView(_model.Cards);
+
+        return card;
     }
 }
