@@ -33,6 +33,8 @@ public class HwatuDeckView : MonoBehaviour
             HwatuCard card = cards[i];
             HwatuCardView view = cards[i].View;
 
+            card.SetParent(this.transform);
+
             card.Position = new Vector3(transform.position.x, origin_y - 0.001f * i, transform.position.z);
             card.State = CardState.FaceDown;
             card.Show = true;

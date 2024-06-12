@@ -4,6 +4,7 @@ using ToyLets.Util;
 public class GameManager : Singleton<GameManager>
 {
     public HwatuDeck Deck = null;
+    public Player Player = null;
 
     GameManager() { }
 
@@ -81,5 +82,13 @@ public class GameManager : Singleton<GameManager>
 
         Deck.Shuffle();
         Deck.Show = true;
+
+        Player = new Player();
+    }
+
+    public void Draw()
+    {
+        var card = GameManager.I.Deck.Pop();
+        Player.Add(card);
     }
 }

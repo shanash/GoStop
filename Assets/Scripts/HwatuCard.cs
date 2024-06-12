@@ -26,6 +26,21 @@ public class HwatuCard
     }
     Vector3 position = Vector3.zero;
 
+    public Quaternion Rotation { get
+        {
+            return rotation;
+        }
+        set
+        {
+            if (_view != null)
+            {
+                _view.transform.rotation = value;
+            }
+            rotation = value;
+        }
+    }
+    Quaternion rotation = Quaternion.identity;
+
     public bool Show
     {
         get => show;

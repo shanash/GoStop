@@ -19,10 +19,9 @@ public class Game : MonoBehaviour
         GameManager.I.Deck.FlipFirst();
     }
 
-    public void OnClickPop()
+    public HwatuCard OnClickPop()
     {
-        var card = GameManager.I.Deck.Pop();
-        card.Position = new Vector3(100, 100, 100);
+        return GameManager.I.Deck.Pop();
     }
 
     public void OnClickShuffle()
@@ -32,6 +31,6 @@ public class Game : MonoBehaviour
 
     public void OnClickDraw()
     {
-        GameManager.I.Deck.Pop();
+        GameManager.I.Draw();
     }
 }
