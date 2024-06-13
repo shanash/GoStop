@@ -11,10 +11,14 @@ public class Game : MonoBehaviour
     [SerializeField]
     Transform rightPlayer = null;
 
+    [SerializeField]
+    PlayAreaView playArea = null;
+
     void Start()
     {
         _ = GameManager.Instance;
         GameManager.I.InitPlayers(localPlayer, leftPlayer, rightPlayer);
+        GameManager.I.initPlayArea(playArea);
     }
 
     void Update()

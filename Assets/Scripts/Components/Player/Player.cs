@@ -2,20 +2,17 @@ using UnityEngine;
 
 public class Player
 {
-    public PlayerModel model;
-    public PlayerView view;
+    
+    PlayerModel model = null;
+    PlayerView view = null;
 
-    public Player(Transform parent)
+    public Player(Transform parent, bool isLocalPlayer = false)
     {
         model = new PlayerModel();
+        model.IsLocalPlayer = isLocalPlayer;
+
         var origin = Resources.Load<PlayerView>("Prefabs/Player");
         view = origin.Instantiate(parent);
-    }
-
-    public void Add(HwatuCard card)
-    {
-        model.Add(card);
-        view.UpdateView(model.Cards);
     }
 
     public void Draw(int number = 1)
@@ -23,7 +20,8 @@ public class Player
         for (int i = 0; i < number; i++)
         {
             var card = GameManager.I.Deck.Pop();
-            Add(card);
+            model.Add(card);
         }
+        view.UpdateView(model);
     }
 }

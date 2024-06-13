@@ -9,8 +9,9 @@ public class PlayerView : MonoBehaviour
 
     List<HwatuCardView> views = null;
 
-    public void UpdateView(List<HwatuCard> cards)
+    public void UpdateView(PlayerModel model)
     {
+        List<HwatuCard> cards = model.Cards;
         int cardCount = cards.Count;
         float fanAngle = Mathf.Min(50f, cardCount * 5f); // 부채꼴의 전체 각도 제한 (예: 최대 60도)
         float angleStep = fanAngle / Mathf.Max(1, cardCount - 1); // 각 카드 간의 각도 차이
@@ -35,7 +36,7 @@ public class PlayerView : MonoBehaviour
 
             card.LocalPosition = new Vector3(Hands.transform.localPosition.x + x, Hands.transform.localPosition.y + 0.02f * i, Hands.transform.localPosition.z + z);
             card.LocalRotation = Quaternion.Euler(0, angle, 0); // 카드의 Y축 회전 각도 설정
-            card.State = CardState.FaceUp;
+            card.State = model.IsLocalPlayer ? CardState.FaceUp : CardState.FaceDown;
             card.Show = true;
 
             // Hierarchy 순서를 List 순서에 맞게 조정

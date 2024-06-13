@@ -9,6 +9,8 @@ public class GameManager : Singleton<GameManager>
     public Player RemotePlayerLeft = null;
     public Player RemotePlayerRight = null;
 
+    public PlayArea Area = null;
+
     GameManager() { }
 
     protected override void Initialize()
@@ -89,7 +91,7 @@ public class GameManager : Singleton<GameManager>
 
     public void InitPlayers(Transform local, Transform left, Transform right)
     {
-        LocalPlayer = new Player(local);
+        LocalPlayer = new Player(local, true);
         LocalPlayer.Draw(7);
 
         RemotePlayerLeft = new Player(left);
@@ -97,5 +99,11 @@ public class GameManager : Singleton<GameManager>
 
         RemotePlayerRight = new Player(right);
         RemotePlayerRight.Draw(7);
+    }
+
+    public void initPlayArea(PlayAreaView view)
+    {
+        Area = new PlayArea(view);
+        Area.DisplayCards(6);
     }
 }

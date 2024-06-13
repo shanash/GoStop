@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 
-public class PlayerModel
+public class PlayAreaModel
 {
-    public bool IsLocalPlayer = false;
     public List<HwatuCard> Cards = new List<HwatuCard>();
+    public PlayAreaModel()
+    {
+
+    }
 
     public void Add(HwatuCard card)
     {
