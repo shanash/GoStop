@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using ToyLets.Util;
+using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
     public HwatuDeck Deck = null;
-    public Player Player = null;
+    public Player LocalPlayer = null;
+    public Player RemotePlayerLeft = null;
+    public Player RemotePlayerRight = null;
 
     GameManager() { }
 
@@ -82,13 +85,17 @@ public class GameManager : Singleton<GameManager>
 
         Deck.Shuffle();
         Deck.Show = true;
-
-        Player = new Player();
     }
 
-    public void Draw()
+    public void InitPlayers(Transform local, Transform left, Transform right)
     {
-        var card = GameManager.I.Deck.Pop();
-        Player.Add(card);
+        LocalPlayer = new Player(local);
+        LocalPlayer.Draw(7);
+
+        RemotePlayerLeft = new Player(left);
+        RemotePlayerLeft.Draw(7);
+
+        RemotePlayerRight = new Player(right);
+        RemotePlayerRight.Draw(7);
     }
 }

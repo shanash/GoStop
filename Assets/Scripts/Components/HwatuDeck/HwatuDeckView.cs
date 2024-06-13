@@ -13,7 +13,7 @@ public class HwatuDeckView : MonoBehaviour
         Debug.Log($"Cards.Count : {cards.Count}");
         for (int i = 0; i < cards.Count; i++)
         {
-            cards[i].Position = new Vector3(transform.position.x, origin_y - 0.001f * i, transform.position.z);
+            cards[i].LocalPosition = new Vector3(transform.position.x, origin_y - 0.001f * i, transform.position.z);
             cards[i].State = CardState.FaceDown;
             cards[i].Show = true;
 
@@ -35,7 +35,7 @@ public class HwatuDeckView : MonoBehaviour
 
             card.SetParent(this.transform);
 
-            card.Position = new Vector3(transform.position.x, origin_y - 0.001f * i, transform.position.z);
+            card.LocalPosition = new Vector3(transform.position.x, origin_y - 0.001f * i, transform.position.z);
             card.State = CardState.FaceDown;
             card.Show = true;
 

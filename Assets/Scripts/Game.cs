@@ -2,13 +2,21 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField]
+    Transform localPlayer = null;
+
+    [SerializeField]
+    Transform leftPlayer = null;
+
+    [SerializeField]
+    Transform rightPlayer = null;
+
     void Start()
     {
         _ = GameManager.Instance;
+        GameManager.I.InitPlayers(localPlayer, leftPlayer, rightPlayer);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -31,6 +39,6 @@ public class Game : MonoBehaviour
 
     public void OnClickDraw()
     {
-        GameManager.I.Draw();
+        //GameManager.I.Draw();
     }
 }

@@ -8,38 +8,38 @@ public class HwatuCard
     public HwatuCardModel Model { get => _model; }
     public HwatuCardView View { get => _view; }
 
-    public Vector3 Position
+    public Vector3 LocalPosition
     {
         get
         {
-            return position;
+            return localPosition;
         }
         set
         {
             if (_view != null)
             {
                 Debug.Log($"{_view.name} : {value}");
-                _view.transform.position = value;
+                _view.transform.localPosition = value;
             }
-            position = value;
+            localPosition = value;
         }
     }
-    Vector3 position = Vector3.zero;
+    Vector3 localPosition = Vector3.zero;
 
-    public Quaternion Rotation { get
+    public Quaternion LocalRotation { get
         {
-            return rotation;
+            return localRotation;
         }
         set
         {
             if (_view != null)
             {
-                _view.transform.rotation = value;
+                _view.transform.localRotation = value;
             }
-            rotation = value;
+            localRotation = value;
         }
     }
-    Quaternion rotation = Quaternion.identity;
+    Quaternion localRotation = Quaternion.identity;
 
     public bool Show
     {

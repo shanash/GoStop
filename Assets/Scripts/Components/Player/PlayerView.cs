@@ -33,17 +33,13 @@ public class PlayerView : MonoBehaviour
             float x = radius * Mathf.Sin(radian);
             float z = radius * Mathf.Cos(radian);
 
-            card.Position = new Vector3(Hands.transform.position.x + x, Hands.transform.position.y + 0.01f * i, Hands.transform.position.z + z);
-            card.Rotation = Quaternion.Euler(0, angle, 0); // 카드의 Y축 회전 각도 설정
+            card.LocalPosition = new Vector3(Hands.transform.localPosition.x + x, Hands.transform.localPosition.y + 0.02f * i, Hands.transform.localPosition.z + z);
+            card.LocalRotation = Quaternion.Euler(0, angle, 0); // 카드의 Y축 회전 각도 설정
             card.State = CardState.FaceUp;
             card.Show = true;
 
             // Hierarchy 순서를 List 순서에 맞게 조정
             view.transform.SetSiblingIndex(i);
-
-            // 카드 뷰 위치 및 회전 설정
-            //view.transform.localPosition = card.Position;
-            //view.transform.localRotation = card.Rotation;
         }
     }
 
