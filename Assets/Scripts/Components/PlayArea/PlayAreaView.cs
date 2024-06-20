@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayAreaView : MonoBehaviour
 {
     [SerializeField]
-    GameObject[] PlayAreaPoint = null;
+    GameObject Plane = null;
+
+    [SerializeField]
+    List<GameObject> PlayAreaPoint = null;
 
     List<HwatuCardView> views = null;
 
@@ -19,21 +22,33 @@ public class PlayAreaView : MonoBehaviour
         views = new List<HwatuCardView>();
         List<HwatuCard> cards = model.Cards;
 
-        for (int i = 0; i < PlayAreaPoint.Length; i++)
+        int areaIndex = -1;
+
+
+
+        for (int i = 0; i < cards.Count; i++)
         {
-            if (views.Count > i && views[i] == cards[i].View)
+            if (PlayAreaPoint.Contains(cards[i].View.transform.parent.gameObject))
             {
                 continue;
             }
 
-            HwatuCard card = cards[i];
-            HwatuCardView view = cards[i].View;
+            for (int j = areaIndex+1; j < PlayAreaPoint.Count; j++)
+            {
+                if (PlayAreaPoint[j].transform.childCount == 0)
+                {
+                    areaIndex = j;
+                    break;
+                }
+            }
 
-            card.SetParent(PlayAreaPoint[i].transform);
+            HwatuCard card = cards[i];
+            card.SetParent(PlayAreaPoint[areaIndex].transform);
 
             card.LocalPosition = Vector3.zero;
             card.State = CardState.FaceUp;
             card.Show = true;
+
         }
     }
 }

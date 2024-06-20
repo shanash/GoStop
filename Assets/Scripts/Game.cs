@@ -3,6 +3,9 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     [SerializeField]
+    InputController inputController = null;
+
+    [SerializeField]
     Transform localPlayer = null;
 
     [SerializeField]
@@ -19,6 +22,7 @@ public class Game : MonoBehaviour
         _ = GameManager.Instance;
         GameManager.I.InitPlayers(localPlayer, leftPlayer, rightPlayer);
         GameManager.I.initPlayArea(playArea);
+        GameManager.I.SetDel(inputController);
     }
 
     void Update()
