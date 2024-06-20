@@ -106,4 +106,10 @@ public class GameManager : Singleton<GameManager>
         Area = new PlayArea(view);
         Area.DisplayCards(6);
     }
+
+    public void SetDel(InputController input)
+    {
+        LocalPlayer.OnCardPlayed += Area.OnCardPlayed;
+        input.Initialize(LocalPlayer);
+    }
 }

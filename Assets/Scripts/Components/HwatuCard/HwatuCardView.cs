@@ -24,6 +24,12 @@ public class HwatuCardView : MonoBehaviour
     }
     string design = string.Empty;
 
+    public void Initialze()
+    {
+        transform.localScale = Vector3.one;
+        transform.localEulerAngles = Vector3.zero;
+    }
+
     void SetDesign(string designName)
     {
         Debug.Log($"D : {designName}");
