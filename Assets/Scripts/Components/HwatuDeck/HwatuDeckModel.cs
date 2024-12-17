@@ -92,8 +92,6 @@ public class HwatuDeckModel
                 HinduShuffle();
             }
         }
-
-        view?.UpdateView(Cards);
     }
 
     void SevenCardShuffle()
