@@ -1,3 +1,8 @@
 {
-    "dotnet.preferCSharpExtension": true
+    "dotnet.preferCSharpExtension": true,
+    "omnisharp.useModernNet": true,
+    "omnisharp.enableRoslynAnalyzers": true,
+    "omnisharp.enableEditorConfigSupport": true,
+    "omnisharp.enableImportCompletion": true,
+    "omnisharp.useGlobalMono": "always"
 }
