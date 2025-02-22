@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ToyLets.Util;
+using ToyLets.GenericPatterns;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>

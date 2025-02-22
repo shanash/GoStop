@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using UnityEngine;
 
-namespace ToyLets.Util
+namespace ToyLets.GenericPatterns
 {
     public abstract class Singleton<T> where T : Singleton<T>
     {

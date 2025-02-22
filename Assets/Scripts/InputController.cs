@@ -45,13 +45,11 @@ public class InputController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, cardLayerMask))
         {
-            //Debug.Log("raycast");
             GameObject hitObject = hit.collider.gameObject;
             player.SelectCard(hitObject);
         }
         else
         {
-            //Debug.Log("not raycast");
             player.ResetSelectedCard();
         }
     }
