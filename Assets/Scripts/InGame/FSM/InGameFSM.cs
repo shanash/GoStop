@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ToyLets.State;
+using ToyLets.GenericPatterns.State;
 
 namespace InGameState
 {

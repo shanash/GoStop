@@ -1,6 +1,6 @@
 using System;
 
-namespace ToyLets.State
+namespace ToyLets.GenericPatterns.State
 {
     public abstract class StateBase<S, T> : IState<S, T> where S : Enum where T : class
     {

@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-namespace ToyLets.State
+namespace ToyLets.GenericPatterns.State
 {
     public abstract class StateContextBase<S, T> where S : Enum where T : class
     {

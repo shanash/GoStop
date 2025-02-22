@@ -1,6 +1,6 @@
 using System;
 
-namespace ToyLets.State
+namespace ToyLets.GenericPatterns.State
 {
     /// <summary>
     /// 상태 인터페이스
