@@ -16,11 +16,11 @@ public class PlayArea
         PlaceCard(card);
     }
 
-    public void DisplayCards(int number)
+    public void DisplayCards(HwatuDeck deck, int number)
     {
         for (int i = 0; i < number; i++)
         {
-            var card = GameManager.I.Deck.Pop();
+            var card = deck.Pop();
             model.Add(card);
         }
         view.UpdateView(model);

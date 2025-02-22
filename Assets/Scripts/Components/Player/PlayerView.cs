@@ -27,6 +27,8 @@ public class PlayerView : MonoBehaviour
 
     public void UpdateView(PlayerModel model)
     {
+        views.Clear();
+
         List<HwatuCard> cards = model.Cards;
         int cardCount = cards.Count;
         float fanAngle = Mathf.Min(50f, cardCount * 5f); // 부채꼴의 전체 각도 제한 (예: 최대 60도)

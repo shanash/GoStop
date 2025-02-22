@@ -34,6 +34,12 @@ namespace ToyLets.GenericPatterns.State
             CurrentState = null;
             _controller = controller;
             _states = states;
+
+            foreach (var state in _states)
+            {
+                state.SetFSM(this);
+            }
+
             _queueStates = new Queue<S>();
 
             ChangeState(initState);

@@ -28,6 +28,8 @@ public class PlayAreaView : MonoBehaviour
 
         for (int i = 0; i < cards.Count; i++)
         {
+            Debug.Log($"cards : {cards.Count} {i}");
+            Debug.Log($"view : {cards[i] != null}");
             if (PlayAreaPoint.Contains(cards[i].View.transform.parent.gameObject))
             {
                 continue;

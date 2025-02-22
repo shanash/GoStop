@@ -1,5 +1,5 @@
-
 using ToyLets.GenericPatterns.State;
+using UnityEngine;
 
 namespace InGameState
 {
@@ -24,17 +24,15 @@ namespace InGameState
 
         public override void OnEnterState(InGame controller)
         {
-            UnityEngine.Debug.Log($"OnEnterState : {TransID}");
+            Debug.Log($"**OnEnterState : {TransID}");
         }
 
         public override void OnUpdateState(InGame controller)
         {
-            UnityEngine.Debug.Log($"OnUpdateState : {TransID}");
         }
 
         public override void OnExitState(InGame controller)
         {
-            UnityEngine.Debug.Log($"OnExitState : {TransID}");
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace ToyLets.GenericPatterns.State
 {
@@ -6,9 +7,20 @@ namespace ToyLets.GenericPatterns.State
     {
         public S TransID { get; protected set; }
         protected float _deltaTime { get; set; }
+        private StateContextBase<S, T> _stateContextBase { get; set; }
 
         public abstract void OnEnterState(T controller);
         public abstract void OnUpdateState(T controller);
         public abstract void OnExitState(T controller);
+
+        public void SetFSM(StateContextBase<S, T> fsm)
+        {
+            _stateContextBase = fsm;
+        }
+
+        protected void ChangeState(S trans)
+        {
+            _stateContextBase.ChangeState(trans);
+        }
     }
 }

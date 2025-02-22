@@ -61,6 +61,9 @@ public class InputController : MonoBehaviour
 
     void OnMouseClick(InputAction.CallbackContext context)
     {
-        player.PlayCard();
+        if (player.IsSelectedCard())
+        {
+            player.PlayCard();
+        }
     }
 }

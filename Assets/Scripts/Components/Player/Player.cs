@@ -18,11 +18,11 @@ public class Player
         view = origin.Instantiate(parent);
     }
 
-    public void Draw(int number = 1)
+    public void Draw(HwatuDeck deck, int number = 1)
     {
         for (int i = 0; i < number; i++)
         {
-            var card = GameManager.I.Deck.Pop();
+            var card = deck.Pop();
             if (model.IsLocalPlayer)
             {
                 card.View.gameObject.layer = 7;
@@ -62,6 +62,11 @@ public class Player
 
         model.Select(card);
         view.Select(card.View);
+    }
+
+    public bool IsSelectedCard()
+    {
+        return model.SelectedCard != null;
     }
 
     public void ResetSelectedCard()
