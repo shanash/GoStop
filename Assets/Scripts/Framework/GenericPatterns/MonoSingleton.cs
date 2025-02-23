@@ -23,7 +23,7 @@ namespace ToyLets.GenericPatterns
                 {
                     if (Saved_Instance == null)
                     {
-                        T[] objs = FindObjectsOfType<T>();
+                        T[] objs = FindObjectsByType<T>(FindObjectsSortMode.None);
 
                         if (objs.Length > 1)
                         {
@@ -39,6 +39,10 @@ namespace ToyLets.GenericPatterns
                         {
                             GameObject go = new GameObject(typeof(T).ToString(), typeof(T));
                             Saved_Instance = go.GetComponent<T>();
+                        }
+
+                        if (!Saved_Instance._isInit)
+                        {
                             Saved_Instance._Initialize();
                         }
                     }
@@ -70,8 +74,8 @@ namespace ToyLets.GenericPatterns
         }
 
         protected virtual bool ResetInstanceOnChangeScene => false;
-        protected abstract bool Is_DontDestroyOnLoad { get; }
         protected abstract void Initialize();
+        private bool _isInit = false;
 
         void OnAppQuit()
         {
@@ -81,12 +85,9 @@ namespace ToyLets.GenericPatterns
 
         void _Initialize()
         {
+            _isInit = true;
             Initialize();
-
-            if (Is_DontDestroyOnLoad)
-            {
-                DontDestroyOnLoad(this.gameObject);
-            }
+            DontDestroyOnLoad(this.gameObject);
 
             if (ResetInstanceOnChangeScene)
             {

@@ -1,35 +1,43 @@
 using UnityEngine;
 using System.Collections.Generic;
 using InGameState;
+using ToyLets.GenericPatterns;
 
-public class InGame : MonoBehaviour
+public class InGame : MonoSingleton<InGame>
 {
     [SerializeField]
-    InputController inputController = null;
+    private InputController inputController = null;
 
     [SerializeField]
-    Transform trLocalPlayer = null;
+    private Transform trLocalPlayer = null;
 
     [SerializeField]
-    Transform trLeftPlayer = null;
+    private Transform trLeftPlayer = null;
 
     [SerializeField]
-    Transform trRightPlayer = null;
+    private Transform trRightPlayer = null;
 
     [SerializeField]
-    PlayAreaView playAreaView = null;
+    private PlayAreaView playAreaView = null;
 
-    public HwatuDeck Deck = null;
-    public Player LocalPlayer = null;
-    public Player RemotePlayerLeft = null;
-    public Player RemotePlayerRight = null;
+    public HwatuDeck Deck { get; private set; } = null;
+    public Player LocalPlayer { get; private set; } = null;
+    public Player RemotePlayerLeft { get; private set; } = null;
+    public Player RemotePlayerRight { get; private set; } = null;
 
-    public PlayArea Area = null;
+    public PlayArea Area { get; private set; } = null;
 
-    protected InGameFSM _fsm { get; set; } = null;
+    public InGameFSM FSM { get; protected set; } = null;
 
-    void Start()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    static void CallInstance()
     {
+        _ = Instance;
+    }
+
+    protected override void Initialize()
+    {
+        Debug.Log("**Initialize");
         List<InGameStateBase> list = new List<InGameStateBase>
         {
             new InitState(),
@@ -41,12 +49,12 @@ public class InGame : MonoBehaviour
             new GameEndState(),
         };
 
-        _fsm = new InGameFSM(list, this, STATE.INIT);
+        FSM = new InGameFSM(list, this, STATE.INIT);
     }
 
     void Update()
     {
-        _fsm?.UpdateState();
+        FSM?.UpdateState();
     }
 
     public void OnClickFlipFirst()
