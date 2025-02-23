@@ -8,7 +8,7 @@ namespace InGameState
         public override void OnEnterState(InGame controller)
         {
             base.OnEnterState(controller);
-            controller.Init();
+            controller.OnEnterInit();
 
             ChangeState(STATE.ROUND_START);
         }

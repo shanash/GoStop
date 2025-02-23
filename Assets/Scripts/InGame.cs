@@ -29,6 +29,8 @@ public class InGame : MonoSingleton<InGame>
 
     public InGameFSM FSM { get; protected set; } = null;
 
+    public Player CurrentPlayer { get; private set; } = null;
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void CallInstance()
     {
@@ -37,7 +39,6 @@ public class InGame : MonoSingleton<InGame>
 
     protected override void Initialize()
     {
-        Debug.Log("**Initialize");
         List<InGameStateBase> list = new List<InGameStateBase>
         {
             new InitState(),
@@ -77,13 +78,18 @@ public class InGame : MonoSingleton<InGame>
         //GameManager.I.Draw();
     }
 
-    public void Init()
+    public void OnEnterInit()
     {
         CreateDeck();
         InitPlayers(trLocalPlayer, trLeftPlayer, trRightPlayer);
         InitPlayArea(playAreaView);
         LocalPlayer.OnCardPlayed += Area.OnCardPlayed;
         inputController.Initialize(LocalPlayer);
+    }
+
+    public void OnEnterPlayer()
+    {
+        CurrentPlayer = LocalPlayer;
     }
 
     public void InitPlayers(Transform local, Transform left, Transform right)

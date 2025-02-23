@@ -42,7 +42,7 @@ namespace ToyLets.GenericPatterns.State
 
             _queueStates = new Queue<S>();
 
-            ChangeState(initState);
+            ChangeState(initState, true);
         }
 
         public StateBase<S, T> GetFindStateByTrans(S trans)
@@ -51,9 +51,9 @@ namespace ToyLets.GenericPatterns.State
             return s;
         }
 
-        public void ChangeState(S trans)
+        public void ChangeState(S trans, bool isInit = false)
         {
-            if (CurrentState == null)
+            if (isInit)
             {
                 RealChangeState(trans);
             }

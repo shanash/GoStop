@@ -2,11 +2,8 @@ using UnityEngine;
 
 public class HwatuCard
 {
-    HwatuCardModel _model;
-    HwatuCardView _view;
-
-    public HwatuCardModel Model { get => _model; }
-    public HwatuCardView View { get => _view; }
+    public HwatuCardModel Model { get; private set; }
+    public HwatuCardView View { get; private set; }
 
     public Vector3 LocalPosition
     {
@@ -16,10 +13,10 @@ public class HwatuCard
         }
         set
         {
-            if (_view != null)
+            if (View != null)
             {
-                Debug.Log($"{_view.name} : {value}");
-                _view.transform.localPosition = value;
+                Debug.Log($"{View.name} : {value}");
+                View.transform.localPosition = value;
             }
             localPosition = value;
         }
@@ -32,9 +29,9 @@ public class HwatuCard
         }
         set
         {
-            if (_view != null)
+            if (View != null)
             {
-                _view.transform.localRotation = value;
+                View.transform.localRotation = value;
             }
             localRotation = value;
         }
@@ -46,7 +43,7 @@ public class HwatuCard
         get => show;
         set
         {
-            _view.gameObject.SetActive(value);
+            View.gameObject.SetActive(value);
             show = value;
         }
     }
@@ -58,7 +55,7 @@ public class HwatuCard
         get => state;
         set
         {
-            _view?.SetFace(value);
+            View?.SetFace(value);
             state = value;
         }
     }
@@ -72,14 +69,14 @@ public class HwatuCard
 
     public HwatuCard(int month, CardType type, string design, Vector3 pos)
     {
-        _model = new HwatuCardModel(month, type, design);
+        Model = new HwatuCardModel(month, type, design);
 
         var origin = Resources.Load<HwatuCardView>("Prefabs/Card");
-        _view = Object.Instantiate(origin);
-        _view.name = $"{origin.name}_{month}_{type}";
-        _view.transform.position = pos;
-        _view.Design = _model.Design;
-        _view.SetFace(State);
+        View = Object.Instantiate(origin);
+        View.name = $"{origin.name}_{month}_{type}";
+        View.transform.position = pos;
+        View.Design = Model.Design;
+        View.SetFace(State);
     }
 
     public void Flip()
@@ -101,6 +98,6 @@ public class HwatuCard
 
     public void SetParent(Transform parent)
     {
-        _view.transform.SetParent(parent);
+        View.transform.SetParent(parent);
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -39,6 +40,16 @@ public class InputController : MonoBehaviour
 
     void Update()
     {
+        if (InGame.I.FSM.CurrentState.TransID != InGameState.STATE.PLAYER_TURN)
+        {
+            return;
+        }
+
+        if (!InGame.I.CurrentPlayer.IsLocal)
+        {
+            return;
+        }
+
         Vector2 mousePosition = pointAction.ReadValue<Vector2>();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
@@ -61,6 +72,16 @@ public class InputController : MonoBehaviour
 
     void OnMouseClick(InputAction.CallbackContext context)
     {
+        if (InGame.I.FSM.CurrentState.TransID != InGameState.STATE.PLAYER_TURN)
+        {
+            return;
+        }
+
+        if (!InGame.I.CurrentPlayer.IsLocal)
+        {
+            return;
+        }
+
         if (player.IsSelectedCard())
         {
             player.PlayCard();

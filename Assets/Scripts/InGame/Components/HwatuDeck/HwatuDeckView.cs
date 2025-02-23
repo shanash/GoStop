@@ -10,7 +10,6 @@ public class HwatuDeckView : MonoBehaviour
         views = new List<HwatuCardView>();
 
         float origin_y = transform.position.y + (cards.Count * 0.001f);
-        Debug.Log($"Cards.Count : {cards.Count}");
         for (int i = 0; i < cards.Count; i++)
         {
             cards[i].LocalPosition = new Vector3(transform.position.x, origin_y - 0.001f * i, transform.position.z);

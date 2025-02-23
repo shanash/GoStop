@@ -32,10 +32,8 @@ public class HwatuCardView : MonoBehaviour
 
     void SetDesign(string designName)
     {
-        Debug.Log($"D : {designName}");
         var mat = new Material(source);
         var path = $"Images/{designName}";
-        Debug.Log($"path : {path}");
         var tex = Resources.Load<Texture2D>($"Images/{designName}");
         mat.SetTexture("_BaseMap", tex);
         mr.material = mat;
@@ -43,7 +41,6 @@ public class HwatuCardView : MonoBehaviour
 
     public void SetFace(CardState state)
     {
-        Debug.Log($"{this.name} : SetFace");
         pivot.localEulerAngles = new Vector3(0, 0, state == CardState.FaceDown ? 0 : 180);
     }
 }

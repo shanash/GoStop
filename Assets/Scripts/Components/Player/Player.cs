@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class Player
 {
-    PlayerModel model = null;
-    PlayerView view = null;
-
     // 델리게이트와 이벤트를 정의합니다.
     public event Action<HwatuCard> OnCardPlayed;
+
+    public bool IsLocal => model.IsLocalPlayer;
+    private PlayerModel model { get; set; } = null;
+    private PlayerView view { get; set; } = null;
 
     public Player(Transform parent, bool isLocalPlayer = false)
     {
