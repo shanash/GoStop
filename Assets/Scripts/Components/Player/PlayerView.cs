@@ -29,7 +29,7 @@ public class PlayerView : MonoBehaviour
     {
         views.Clear();
 
-        List<HwatuCard> cards = model.Cards;
+        List<HwatuCard> cards = model.HandCards;
         int cardCount = cards.Count;
         float fanAngle = Mathf.Min(50f, cardCount * 5f); // 부채꼴의 전체 각도 제한 (예: 최대 60도)
         float angleStep = fanAngle / Mathf.Max(1, cardCount - 1); // 각 카드 간의 각도 차이

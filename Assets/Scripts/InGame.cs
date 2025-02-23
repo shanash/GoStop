@@ -123,8 +123,11 @@ public class InGame : MonoSingleton<InGame>
                 case 3:
                 case 8:
                 case 11:
-                case 12:
                     Cards.Add(new HwatuCard(month, CardType.Kwang, $"{month:D2}_{index}"));
+                    index++;
+                    break;
+                case 12:
+                    Cards.Add(new HwatuCard(month, CardType.Kwang | CardType.BiKwang, $"{month:D2}_{index}"));
                     index++;
                     break;
             }
@@ -137,11 +140,13 @@ public class InGame : MonoSingleton<InGame>
                 case 6:
                 case 7:
                 case 8:
-                case 9:
                 case 10:
                 case 12:
                     Cards.Add(new HwatuCard(month, CardType.Yeolggot, $"{month:D2}_{index}"));
                     index++;
+                    break;
+                case 9:
+                    Cards.Add(new HwatuCard(month, CardType.Yeolggot | CardType.SsangPi, $"{month:D2}_{index}"));
                     break;
             }
 
@@ -150,14 +155,20 @@ public class InGame : MonoSingleton<InGame>
                 case 1:
                 case 2:
                 case 3:
+                    Cards.Add(new HwatuCard(month, CardType.Tti | CardType.Hongdan, $"{month:D2}_{index}"));
+                    index++;
+                    break;
                 case 4:
                 case 5:
-                case 6:
                 case 7:
+                    Cards.Add(new HwatuCard(month, CardType.Tti | CardType.Chodan, $"{month:D2}_{index}"));
+                    index++;
+                    break;
+                case 6:
                 case 9:
                 case 10:
                 case 12:
-                    Cards.Add(new HwatuCard(month, CardType.Tti, $"{month:D2}_{index}"));
+                    Cards.Add(new HwatuCard(month, CardType.Tti | CardType.Cheongdan, $"{month:D2}_{index}"));
                     index++;
                     break;
             }
@@ -166,7 +177,7 @@ public class InGame : MonoSingleton<InGame>
             {
                 case 11:
                 case 12:
-                    Cards.Add(new HwatuCard(month, CardType.SsangPi, $"{month:D2}_{index}"));
+                    Cards.Add(new HwatuCard(month, CardType.SsangPi | CardType.Pi, $"{month:D2}_{index}"));
                     index++;
                     break;
             }

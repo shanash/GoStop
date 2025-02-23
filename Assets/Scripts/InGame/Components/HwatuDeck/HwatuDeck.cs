@@ -28,9 +28,11 @@ public class HwatuDeck
         _view.UpdateView(_model.Cards);
     }
 
-    public void FlipFirst()
+    public HwatuCard FlipFirst()
     {
         _model.Cards[0].Flip();
+
+        return _model.Cards[0];
     }
 
     public HwatuCard Pop()

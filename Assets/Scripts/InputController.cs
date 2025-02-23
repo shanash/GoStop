@@ -17,7 +17,7 @@ public class InputController : MonoBehaviour
     Dictionary<GameObject, Vector3> originalPositions = new Dictionary<GameObject, Vector3>();
     Dictionary<GameObject, Coroutine> resizeCoroutines = new Dictionary<GameObject, Coroutine>();
 
-    Player player;
+    private Player _localPlayer;
 
     void Awake()
     {
@@ -50,6 +50,11 @@ public class InputController : MonoBehaviour
             return;
         }
 
+        if (_localPlayer.PlayedCard)
+        {
+            return;
+        }
+
         Vector2 mousePosition = pointAction.ReadValue<Vector2>();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
@@ -57,17 +62,17 @@ public class InputController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, cardLayerMask))
         {
             GameObject hitObject = hit.collider.gameObject;
-            player.SelectCard(hitObject);
+            _localPlayer.SelectCard(hitObject);
         }
         else
         {
-            player.ResetSelectedCard();
+            _localPlayer.ResetSelectedCard();
         }
     }
 
     public void Initialize(Player playerInstance)
     {
-        player = playerInstance;
+        _localPlayer = playerInstance;
     }
 
     void OnMouseClick(InputAction.CallbackContext context)
@@ -82,9 +87,9 @@ public class InputController : MonoBehaviour
             return;
         }
 
-        if (player.IsSelectedCard())
+        if (_localPlayer.IsSelectedCard())
         {
-            player.PlayCard();
+            _localPlayer.PlayCard();
         }
     }
 }
