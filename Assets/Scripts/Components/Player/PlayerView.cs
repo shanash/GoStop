@@ -10,15 +10,15 @@ public class PlayerView : MonoBehaviour
     const float EnlargeDuration = 0.2f; // 크기 변환 지속 시간
 
     [SerializeField]
-    GameObject Hands = null;
+    private GameObject Hands = null;
 
-    List<HwatuCardView> views = null;
+    private List<HwatuCardView> views { get; set; }
 
-    Dictionary<GameObject, Vector3> originalScales = new Dictionary<GameObject, Vector3>();
-    Dictionary<GameObject, Vector3> originalPositions = new Dictionary<GameObject, Vector3>();
-    Dictionary<GameObject, Coroutine> resizeCoroutines = new Dictionary<GameObject, Coroutine>();
+    private Dictionary<GameObject, Vector3> originalScales = new Dictionary<GameObject, Vector3>();
+    private Dictionary<GameObject, Vector3> originalPositions = new Dictionary<GameObject, Vector3>();
+    private Dictionary<GameObject, Coroutine> resizeCoroutines = new Dictionary<GameObject, Coroutine>();
 
-    HwatuCardView selectedCard = null;
+    private HwatuCardView selectedCard = null;
 
     void Awake()
     {
@@ -53,7 +53,7 @@ public class PlayerView : MonoBehaviour
             float x = radius * Mathf.Sin(radian);
             float z = radius * Mathf.Cos(radian);
 
-            card.LocalPosition = new Vector3(Hands.transform.localPosition.x + x, Hands.transform.localPosition.y + 0.02f * i, Hands.transform.localPosition.z + z);
+            card.LocalPosition = new Vector3(x, 0.02f * i, z);
             card.LocalRotation = Quaternion.Euler(0, angle, 0); // 카드의 Y축 회전 각도 설정
             card.State = model.IsLocalPlayer ? CardState.FaceUp : CardState.FaceDown;
             card.Show = true;
