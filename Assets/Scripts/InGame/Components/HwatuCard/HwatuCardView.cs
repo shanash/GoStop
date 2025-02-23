@@ -34,7 +34,7 @@ public class HwatuCardView : MonoBehaviour
     {
         var mat = new Material(source);
         var path = $"Images/{designName}";
-        var tex = Resources.Load<Texture2D>($"Images/{designName}");
+        var tex = Resources.Load<Texture2D>(path);
         mat.SetTexture("_BaseMap", tex);
         mr.material = mat;
     }

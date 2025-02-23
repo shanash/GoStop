@@ -1070,8 +1070,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f958463e54549e695225609bb2a26d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Plane: {fileID: 940184564}
-  PlayAreaPoint:
+  _plane: {fileID: 940184564}
+  _playAreaPoint:
   - {fileID: 548589236}
   - {fileID: 697806438}
   - {fileID: 772150986}

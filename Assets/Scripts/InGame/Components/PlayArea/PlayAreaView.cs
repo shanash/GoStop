@@ -5,50 +5,43 @@ using UnityEngine;
 public class PlayAreaView : MonoBehaviour
 {
     [SerializeField]
-    GameObject Plane = null;
+    private GameObject _plane = null;
 
     [SerializeField]
-    List<GameObject> PlayAreaPoint = null;
+    private List<GameObject> _playAreaPoint = null;
 
-    List<HwatuCardView> views = null;
+    public int CountPlayAreaPoint => _playAreaPoint.Count;
+    private List<HwatuCardView> _views { get; set; }
 
     void Start()
     {
-        views = new List<HwatuCardView>();
+        _views = new List<HwatuCardView>();
     }
 
     public void UpdateView(PlayAreaModel model)
     {
-        views = new List<HwatuCardView>();
-        List<HwatuCard> cards = model.Cards;
+        _views = new List<HwatuCardView>();
+        Dictionary<int, List<HwatuCard>> cards = model.Cards;
 
         int areaIndex = -1;
 
-
-
-        for (int i = 0; i < cards.Count; i++)
+        foreach (var kvCard in cards)
         {
-            if (PlayAreaPoint.Contains(cards[i].View.transform.parent.gameObject))
-            {
-                continue;
-            }
+            areaIndex = kvCard.Key;
+            var listCard = kvCard.Value;
 
-            for (int j = areaIndex+1; j < PlayAreaPoint.Count; j++)
+            for (int i = 0; i < listCard.Count; i++)
             {
-                if (PlayAreaPoint[j].transform.childCount == 0)
+                if (_playAreaPoint.Contains(listCard[i].View.transform.parent.gameObject))
                 {
-                    areaIndex = j;
-                    break;
+                    continue;
                 }
+                listCard[i].SetParent(_playAreaPoint[areaIndex].transform);
+
+                listCard[i].LocalPosition = Vector3.zero + i * new Vector3(0.04f, 0.001f, 0.04f);
+                listCard[i].State = CardState.FaceUp;
+                listCard[i].Show = true;
             }
-
-            HwatuCard card = cards[i];
-            card.SetParent(PlayAreaPoint[areaIndex].transform);
-
-            card.LocalPosition = Vector3.zero;
-            card.State = CardState.FaceUp;
-            card.Show = true;
-
         }
     }
 }

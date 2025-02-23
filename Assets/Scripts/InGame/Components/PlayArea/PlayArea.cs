@@ -1,19 +1,29 @@
-using UnityEngine;
-
 public class PlayArea
 {
-    PlayAreaModel model;
-    PlayAreaView view;
+    private PlayAreaModel _model { get; set; }
+    private PlayAreaView _view { get; set; }
 
     public PlayArea(PlayAreaView view)
     {
-        model = new PlayAreaModel();
-        this.view = view;
+        this._view = view;
+        _model = new PlayAreaModel(_view.CountPlayAreaPoint);
     }
 
     public void OnCardPlayed(HwatuCard card)
     {
-        PlaceCard(card);
+        // 바닥 모델에서 파라메터와 같은 월의 패가 있는지 체크
+        if (_model.IsSameMonth(card))
+        {
+            // 같은 월의 패에 겹쳐서 때린다
+            _model.AttackCard(card);
+        }
+        // 그런거 없으면 그냥 바닥에 놓는다
+        else
+        {
+            PlaceCard(card);
+        }
+
+        _view.UpdateView(_model);
     }
 
     public void DisplayCards(HwatuDeck deck, int number)
@@ -21,14 +31,13 @@ public class PlayArea
         for (int i = 0; i < number; i++)
         {
             var card = deck.Pop();
-            model.Add(card);
+            _model.AddNew(card);
         }
-        view.UpdateView(model);
+        _view.UpdateView(_model);
     }
 
     public void PlaceCard(HwatuCard card)
     {
-        model.Add(card);
-        view.UpdateView(model);
+        _model.AddNew(card);
     }
 }
