@@ -23,7 +23,7 @@ public class PlayAreaView : MonoBehaviour
         _views = new List<HwatuCardView>();
         Dictionary<int, List<HwatuCard>> cards = model.Cards;
 
-        int areaIndex = -1;
+        int areaIndex;
 
         foreach (var kvCard in cards)
         {

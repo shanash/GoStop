@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
+using Unity.Collections;
+
 public class PlayArea
 {
     private PlayAreaModel _model { get; set; }
@@ -39,5 +43,23 @@ public class PlayArea
     public void PlaceCard(HwatuCard card)
     {
         _model.AddNew(card);
+    }
+
+    public List<HwatuCard> PopEarnedCards()
+    {
+        var earnedCards = _model.Cards
+            .Where(kv => kv.Value.Count % 2 == 0)
+            .ToList();
+
+        var cards = earnedCards.SelectMany(kv => kv.Value).ToList();
+
+        foreach (var kv in earnedCards)
+        {
+            _model.Cards.Remove(kv.Key);
+        }
+
+        _view.UpdateView(_model);
+        
+        return cards;
     }
 }

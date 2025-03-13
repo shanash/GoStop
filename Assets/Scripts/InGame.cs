@@ -90,6 +90,7 @@ public class InGame : MonoSingleton<InGame>
     public void OnEnterPlayer()
     {
         CurrentPlayer = LocalPlayer;
+        LocalPlayer.OnPlayerTurn();
     }
 
     public void InitPlayers(Transform local, Transform left, Transform right)

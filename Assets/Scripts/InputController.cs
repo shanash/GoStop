@@ -50,7 +50,7 @@ public class InputController : MonoBehaviour
             return;
         }
 
-        if (_localPlayer.PlayedCard)
+        if (!_localPlayer.CanPlayCard)
         {
             return;
         }
@@ -89,7 +89,7 @@ public class InputController : MonoBehaviour
 
         if (_localPlayer.IsSelectedCard())
         {
-            _localPlayer.PlayCard();
+            _localPlayer.PlayCard().Forget();
         }
     }
 }

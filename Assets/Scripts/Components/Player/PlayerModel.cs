@@ -12,7 +12,7 @@ public class PlayerModel
     public HwatuCard SelectedCard { get; private set; } = null;
 
     // 내 점수 패
-    private Dictionary<CardType, List<HwatuCard>> _scoreCards { get; set; } = null;
+    public Dictionary<CardType, List<HwatuCard>> ScoreCards { get; private set; } = null;
 
     public PlayerModel()
     {
@@ -21,7 +21,7 @@ public class PlayerModel
 
     public void Reset()
     {
-        _scoreCards = new Dictionary<CardType, List<HwatuCard>>
+        ScoreCards = new Dictionary<CardType, List<HwatuCard>>
         {
             { CardType.Kwang, new List<HwatuCard>() },
             { CardType.BiKwang, new List<HwatuCard>() },
@@ -55,7 +55,7 @@ public class PlayerModel
 
     public void AddScoreCard(HwatuCard card)
     {
-        foreach (var kvCardList in _scoreCards)
+        foreach (var kvCardList in ScoreCards)
         {
             if ((card.Model.Type & kvCardList.Key) == kvCardList.Key)
             {
@@ -66,6 +66,6 @@ public class PlayerModel
 
     public List<HwatuCard> GetScoreCards(CardType type)
     {
-        return _scoreCards[type];
+        return ScoreCards[type];
     }
 }

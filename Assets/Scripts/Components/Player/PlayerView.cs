@@ -1,7 +1,7 @@
 using UnityEngine;
-using System.Collections.Generic;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerView : MonoBehaviour
 {
@@ -10,9 +10,13 @@ public class PlayerView : MonoBehaviour
     const float EnlargeDuration = 0.2f; // 크기 변환 지속 시간
 
     [SerializeField]
-    private GameObject Hands = null;
+    private Transform hands = null;
+    [SerializeField]
+    private Transform score = null;
+    private Dictionary<CardType, Transform> scores = null;
 
-    private List<HwatuCardView> views { get; set; }
+    private List<HwatuCardView> handViews { get; set; }
+    private List<HwatuCardView> scoreViews { get; set; }
 
     private Dictionary<GameObject, Vector3> originalScales = new Dictionary<GameObject, Vector3>();
     private Dictionary<GameObject, Vector3> originalPositions = new Dictionary<GameObject, Vector3>();
@@ -22,15 +26,28 @@ public class PlayerView : MonoBehaviour
 
     void Awake()
     {
-        views = new List<HwatuCardView>();
+        handViews = new List<HwatuCardView>();
+        scoreViews = new List<HwatuCardView>();
+
+        scores = new Dictionary<CardType, Transform>();
+
+        foreach (CardType value in Enum.GetValues(typeof(CardType)))
+        {
+            string name = value.ToString();
+            Transform child = score.Find(name);
+            if (child != null)
+            {
+                scores.Add(value, child);
+            }
+        }
     }
 
     public void UpdateView(PlayerModel model)
     {
-        views.Clear();
+        handViews.Clear();
 
-        List<HwatuCard> cards = model.HandCards;
-        int cardCount = cards.Count;
+        List<HwatuCard> handCards = model.HandCards;
+        int cardCount = handCards.Count;
         float fanAngle = Mathf.Min(50f, cardCount * 5f); // 부채꼴의 전체 각도 제한 (예: 최대 60도)
         float angleStep = fanAngle / Mathf.Max(1, cardCount - 1); // 각 카드 간의 각도 차이
         float startAngle = -fanAngle / 2f; // 첫 번째 카드의 시작 각도
@@ -39,11 +56,11 @@ public class PlayerView : MonoBehaviour
 
         for (int i = 0; i < cardCount; i++)
         {
-            HwatuCard card = cards[i];
-            HwatuCardView view = cards[i].View;
-            views.Add(view);
+            HwatuCard card = handCards[i];
+            HwatuCardView view = handCards[i].View;
+            handViews.Add(view);
 
-            card.SetParent(Hands.transform);
+            card.SetParent(hands);
 
             // 각 카드의 각도 계산
             float angle = startAngle + i * angleStep;
@@ -60,6 +77,33 @@ public class PlayerView : MonoBehaviour
 
             // Hierarchy 순서를 List 순서에 맞게 조정
             view.transform.SetSiblingIndex(i);
+        }
+
+        scoreViews.Clear();
+        List<CardType> keyCardTypes = new List<CardType>
+        {
+            CardType.Kwang,
+            CardType.Yeolggot,
+            CardType.Tti,
+            CardType.Pi,
+        };
+
+        foreach (CardType cardType in keyCardTypes)
+        {
+            if (!scores.ContainsKey(cardType))
+            {
+                continue;
+            }
+        
+            foreach (HwatuCard card in model.ScoreCards[cardType])
+            {
+                int count = scores[cardType].childCount;
+                HwatuCardView view = card.View;
+                scoreViews.Add(view);
+
+                card.SetParent(scores[cardType]);
+                card.LocalPosition = new Vector3(count * 0.24f, count * 0.001f, 0);
+            }
         }
     }
 
@@ -150,7 +194,7 @@ public class PlayerView : MonoBehaviour
             StopCoroutine(resizeCoroutines[target]);
             resizeCoroutines.Remove(target);
         }
-        views.Remove(view);
+        handViews.Remove(view);
         originalScales.Remove(target);
         originalPositions.Remove(target);
     }

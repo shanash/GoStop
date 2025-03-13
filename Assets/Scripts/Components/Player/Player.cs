@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class Player
     public event Action<HwatuCard> OnCardPlayed;
 
     public bool IsLocal => _model.IsLocalPlayer;
-    public bool PlayedCard { get;  private set; }
+    public bool CanPlayCard { get; private set; }
     private PlayerModel _model { get; set; } = null;
     private PlayerView _view { get; set; } = null;
 
@@ -37,7 +38,7 @@ public class Player
 
     public async UniTaskVoid PlayCard()
     {
-        PlayedCard = true;
+        CanPlayCard = false;
 
         HwatuCard card = _model.SelectedCard;
         _model.Select(null);
@@ -56,6 +57,8 @@ public class Player
 
         InGame.I.Deck.Pop();
         OnCardPlayed?.Invoke(flippedCard);
+
+        InGame.I.FSM.ChangeState(InGameState.STATE.SCORE_CALCULATION);
     }
 
     public void SelectCard(GameObject go)
@@ -95,6 +98,16 @@ public class Player
         _model.AddScoreCard(card);
     }
 
+    public void AddScore(List<HwatuCard> cards)
+    {
+        foreach (HwatuCard card in cards)
+        {
+            _model.AddScoreCard(card);
+        }
+
+        _view.UpdateView(_model);
+    }
+
     public int GetScore()
     {
         int score = 0;
@@ -128,5 +141,10 @@ public class Player
         // TODO: 점수계산 나중에 추가
 
         return score;
+    }
+
+    public void OnPlayerTurn()
+    {
+        CanPlayCard = true;
     }
 }

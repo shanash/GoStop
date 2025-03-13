@@ -73,7 +73,8 @@ public class HwatuCard
 
         var origin = Resources.Load<HwatuCardView>("Prefabs/Card");
         View = Object.Instantiate(origin);
-        View.name = $"{origin.name}_{month}_{type}";
+        string baseName = $"{origin.name}_{month}_{type}";
+        View.name = baseName.Replace(", ", "_");
         View.transform.position = pos;
         View.Design = Model.Design;
         View.SetFace(State);
