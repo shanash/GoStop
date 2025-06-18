@@ -93,6 +93,24 @@ public class InGame : MonoSingleton<InGame>
         LocalPlayer.OnPlayerTurn();
     }
 
+    public void PassTurn()
+    {
+        if (CurrentPlayer == LocalPlayer)
+        {
+            CurrentPlayer = RemotePlayerRight;
+        }
+        else if (CurrentPlayer == RemotePlayerRight)
+        {
+            CurrentPlayer = RemotePlayerLeft;
+        }
+        else
+        {
+            CurrentPlayer = LocalPlayer;
+        }
+        
+        CurrentPlayer.OnPlayerTurn();
+    }
+
     public void InitPlayers(Transform local, Transform left, Transform right)
     {
         LocalPlayer = new Player(local, true);

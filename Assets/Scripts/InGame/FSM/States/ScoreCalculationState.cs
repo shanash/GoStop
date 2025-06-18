@@ -27,6 +27,12 @@ namespace InGameState
                     // 고 or 스톱
                     // 일단은 승리로 처리하자
                 }
+                else
+                {
+                    // 다음 사람에게 차례를 넘김
+                    controller.PassTurn();
+                    ChangeState(STATE.PLAYER_TURN);
+                }
             }
         }
     }
